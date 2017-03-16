@@ -24,12 +24,25 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="QYO-eN-OKi">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ejB-co-gWR">
+                                <rect key="frame" x="335" y="40" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="5uX-OM-oMV"/>
+                                    <constraint firstAttribute="height" constant="30" id="bob-ND-eoC"/>
+                                </constraints>
+                                <state key="normal" image="compass"/>
+                                <connections>
+                                    <action selector="centerTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fU0-eV-VcV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ejB-co-gWR" secondAttribute="trailing" constant="10" id="9aF-rq-8ZH"/>
                             <constraint firstItem="QYO-eN-OKi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="AmU-7z-bUN"/>
                             <constraint firstAttribute="trailing" secondItem="QYO-eN-OKi" secondAttribute="trailing" id="LBD-0q-ySW"/>
                             <constraint firstItem="QYO-eN-OKi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Z1E-Wh-9Jg"/>
+                            <constraint firstItem="ejB-co-gWR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="rdr-7D-jpf"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QYO-eN-OKi" secondAttribute="bottom" id="wiJ-gq-EgN"/>
                         </constraints>
                     </view>
@@ -39,6 +52,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="37.331334332833585"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="compass" width="512" height="512"/>
+    </resources>
 </document>
