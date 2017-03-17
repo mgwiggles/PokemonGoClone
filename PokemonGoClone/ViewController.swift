@@ -88,14 +88,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         mapView.setRegion(region, animated: true)
         
-        if let coord = manager.location?.coordinate {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: {(timer) in
         
-            if MKMapRectContainsPoint(mapView.visibleMapRect, MKMapPointForCoordinate(coord)) {
-                print("Can catch the pokemon")
-            } else {
-                print("pokemon is out of reach")
+            if let coord = self.manager.location?.coordinate {
+                
+                if MKMapRectContainsPoint(mapView.visibleMapRect, MKMapPointForCoordinate(coord)) {
+                    print("Can catch the pokemon")
+                    
+                    let pokemon = (view.annotation as! PokeAnnotation).pokemon
+                    pokemon.caught = true
+                    
+                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                } else {
+                    print("pokemon is out of reach")
+                }
             }
-        }
+        
+        })
+        
+        
     }
     
     @IBAction func centerTapped(_ sender: Any) {
