@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -31,8 +31,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             mapView.showsUserLocation = true
             
             manager.startUpdatingLocation()
-            
-            print("ready to go!")
+            mapView.delegate = self
         } else {
             
             manager.requestWhenInUseAuthorization()
@@ -44,7 +43,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             if let coord = self.manager.location?.coordinate {
                 
-                let anno = MKPointAnnotation()
+                let pokemon = self.pokemons[Int(arc4random_uniform(UInt32(self.pokemons.count)))]
+                let anno = PokeAnnotation(coord: coord, pokemon: pokemon)
                 
                 let randoLat = (Double(arc4random_uniform(200)) - 100) / 50000.0
                 let randoLong = (Double(arc4random_uniform(200)) - 100) / 50000.0
@@ -87,6 +87,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation is MKUserLocation {
+            let annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+            var frame = annoView.frame
+            frame.size.height = 50
+            frame.size.width = 50
+            annoView.image = UIImage(named: "player")
+            annoView.frame = frame
+            
+            return annoView
+        }
+        
+        let annoView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        
+        let pokemon = (annotation as! PokeAnnotation).pokemon
+        
+        var frame = annoView.frame
+        frame.size.height = 50
+        frame.size.width = 50
+        
+        annoView.image = UIImage(named: pokemon.imageName!)
+        
+        annoView.frame = frame
+        
+        return annoView
     }
     
     
