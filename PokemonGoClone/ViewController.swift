@@ -76,6 +76,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
     }
     
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: true)
+        
+        
+        if view.annotation! is MKUserLocation {
+            return
+        }
+        
+        let region = MKCoordinateRegionMakeWithDistance(view.annotation!.coordinate, 200, 200)
+        
+        mapView.setRegion(region, animated: true)
+        
+        if let coord = manager.location?.coordinate {
+        
+            if MKMapRectContainsPoint(mapView.visibleMapRect, MKMapPointForCoordinate(coord)) {
+                print("Can catch the pokemon")
+            } else {
+                print("pokemon is out of reach")
+            }
+        }
+    }
+    
     @IBAction func centerTapped(_ sender: Any) {
         
         if let coord = manager.location?.coordinate {
