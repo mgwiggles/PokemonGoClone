@@ -28,15 +28,30 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         manager.delegate = self
         
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            mapView.showsUserLocation = true
             
-            manager.startUpdatingLocation()
-            mapView.delegate = self
+            setup()
+            
         } else {
             
             manager.requestWhenInUseAuthorization()
             
         }
+        
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            setup()
+        }
+    }
+    
+    func setup() {
+        
+        mapView.showsUserLocation = true
+        
+        manager.startUpdatingLocation()
+        mapView.delegate = self
         
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
             //            Spawn a pokemon
